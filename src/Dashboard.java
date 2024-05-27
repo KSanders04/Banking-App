@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class Dashboard extends JFrame{
-    private double balance = 1000.00; // Initial balance
+    private double balance = 0; // Initial balance
 
     public Dashboard() {
         setTitle("Banking Application - Dashboard");
@@ -18,7 +18,7 @@ public class Dashboard extends JFrame{
         add(welcomeLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3));
+        buttonPanel.setLayout(new GridLayout(3, 2));
 
         JButton balanceButton = new JButton("Check Balance");
         JButton depositButton = new JButton("Deposit Money");

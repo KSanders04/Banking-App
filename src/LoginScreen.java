@@ -2,19 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class LoginScreen extends JFrame{
     private JTextField userText;
     private JPasswordField passwordText;
+    private ArrayList<Account> accountArrayList;
 
-    public void LoginScreen() {
+    public LoginScreen(ArrayList<Account> accountArrayList) {
+        this.accountArrayList = accountArrayList;
+
         setTitle("Banking Application - Login");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(3, 2));
 
-        JLabel userLabel = new JLabel("User:");
+        JLabel userLabel = new JLabel("Username:");
         userText = new JTextField(20);
         JLabel passwordLabel = new JLabel("Password:");
         passwordText = new JPasswordField(20);
@@ -38,8 +42,15 @@ public class LoginScreen extends JFrame{
             String username = userText.getText();
             String password = new String(passwordText.getPassword());
 
-            // Simple authentication check
-            if ("user".equals(username) && "password".equals(password)) {
+            boolean authentication = false;
+            for (Account account : accountArrayList){
+                if (account.getUsername().equals(username) && account.getPassword().equals(password)){
+                    authentication = true;
+                    break;
+                }
+            }
+            if (authentication){
+                JOptionPane.showMessageDialog(null, "Login successful");
                 new Dashboard();
                 dispose();
             } else {
@@ -47,5 +58,4 @@ public class LoginScreen extends JFrame{
             }
         }
     }
-
 }
