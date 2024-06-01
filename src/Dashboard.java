@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Dashboard extends JFrame{
     private double balance = 0; // Initial balance
 
-    public Dashboard() {
+    public Dashboard(ArrayList<Account> accountArrayList) {
         setTitle("Banking Application - Dashboard");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,14 +23,17 @@ public class Dashboard extends JFrame{
 
         JButton balanceButton = new JButton("Check Balance");
         JButton depositButton = new JButton("Deposit Money");
+        JButton signOutButton = new JButton("Sign Out");
 
         balanceButton.addActionListener(new BalanceButtonListener());
         depositButton.addActionListener(new DepositButtonListener());
+        signOutButton.addActionListener(new SignOutButtonListener());
 
         buttonPanel.add(balanceButton);
         buttonPanel.add(depositButton);
+        buttonPanel.add(signOutButton);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.WEST);
 
         setVisible(true);
     }
@@ -57,6 +61,17 @@ public class Dashboard extends JFrame{
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number.");
                 }
+            }
+        }
+    }
+    private class SignOutButtonListener implements ActionListener{
+        @Override
+        public  void actionPerformed(ActionEvent e){
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure?","Confirm Sign-Out",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirmation == JOptionPane.YES_OPTION){
+                dispose();
+                new CreateAccount();
             }
         }
     }
